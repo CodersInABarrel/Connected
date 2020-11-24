@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.fabricmc.friend.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "onJoinMixin",
+    "onLeaveMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

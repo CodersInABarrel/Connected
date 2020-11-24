@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "friend",
+  "version": "1.0.0",
+
+  "name": "Friend system",
+  "description": "this is a friend system for nuclieod",
+  "authors": [
+    "I ran out of name ideas"
+  ],
+  "contact": {
+    "homepage": "",
+    "sources": "https://github.com/CodersInABarrel/Connected"
+  },
+
+  "license": "CC0-1.0",
+  "icon": "assets/modid/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.fabricmc.friend.Friend"
+    ]
+  },
+  "mixins": [
+    "friend.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.7.4",
+    "fabric": "*",
+    "minecraft": "1.16.x"
+  },
+  "suggests": {
+    "flamingo": "*"
+  }
+}

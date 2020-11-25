@@ -2,6 +2,8 @@ package net.fabricmc.friend;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
+import net.fabricmc.friend.Commands.FriendCommand;
+import net.fabricmc.friend.Commands.ProfileCommand;
 
 public class Friend implements ModInitializer {
 	@Override
@@ -15,6 +17,7 @@ public class Friend implements ModInitializer {
 	private void registerCallbacks() {
 		CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
 			FriendCommand.register(dispatcher);
+			ProfileCommand.register(dispatcher);
 		});
 	}
 }

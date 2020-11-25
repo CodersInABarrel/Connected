@@ -1,10 +1,12 @@
-package net.fabricmc.friend;
+package net.fabricmc.friend.Commands;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import net.fabricmc.friend.FriendList;
+import net.fabricmc.friend.FriendListManager;
 import net.minecraft.command.argument.GameProfileArgumentType;
 import net.minecraft.network.MessageType;
 import net.minecraft.server.MinecraftServer;

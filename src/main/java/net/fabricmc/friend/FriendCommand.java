@@ -11,6 +11,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.UserCache;
 
 import java.util.UUID;
@@ -39,17 +40,17 @@ public class FriendCommand {
         UserCache userCache = server.getUserCache();
 
         if (FriendListManager.getFriendList(context.getSource().getPlayer().getUuid()).getRequests().size() <= 0) {
-            context.getSource().sendFeedback(new LiteralText("No incoming friend requests"), false);
+            context.getSource().sendFeedback(new LiteralText("No incoming friend requests").formatted(Formatting.GREEN), false);
             return Command.SINGLE_SUCCESS;
         }
 
         int i = 0;
-        context.getSource().sendFeedback(new LiteralText("### incoming friend requests ###"), false);
+        context.getSource().sendFeedback(new LiteralText("### incoming friend requests ###").formatted(Formatting.GREEN), false);
         for (UUID ids : FriendListManager.getFriendList(context.getSource().getPlayer().getUuid()).getRequests()) {
             i++;
-            context.getSource().sendFeedback(new LiteralText("[" + i + "] Request from " + userCache.getByUuid(ids).getName()), false);
+            context.getSource().sendFeedback(new LiteralText("[" + i + "] Request from " + userCache.getByUuid(ids).getName()).formatted(Formatting.GREEN), false);
         }
-        context.getSource().sendFeedback(new LiteralText("### incoming friend requests ###"), false);
+        context.getSource().sendFeedback(new LiteralText("### incoming friend requests ###").formatted(Formatting.GREEN), false);
         return Command.SINGLE_SUCCESS;
     }
 
@@ -59,7 +60,7 @@ public class FriendCommand {
         UserCache uCache = server.getUserCache();
 
         if (FriendListManager.getFriendList(context.getSource().getPlayer().getUuid()).getFriends().size() <= 0) {
-            context.getSource().sendFeedback(new LiteralText("You have no friends..."), false);
+            context.getSource().sendFeedback(new LiteralText("You have no friends...").formatted(Formatting.GREEN), false);
             return Command.SINGLE_SUCCESS;
         }
 
@@ -68,7 +69,7 @@ public class FriendCommand {
 
         for (UUID ids : friendList.getFriends()) {
             i++;
-            context.getSource().sendFeedback(new LiteralText("[" + i + "] " + uCache.getByUuid(ids).getName()), false);
+            context.getSource().sendFeedback(new LiteralText("[" + i + "] " + uCache.getByUuid(ids).getName()).formatted(Formatting.GREEN), false);
         }
         return Command.SINGLE_SUCCESS;
     }
@@ -85,7 +86,7 @@ public class FriendCommand {
                 target.addFriend(context.getSource().getPlayer().getUuid());
                 sender.removeRequest(Profile.getId()); // not needed but you never know
                 target.removeRequest(context.getSource().getPlayer().getUuid());
-                context.getSource().sendFeedback(new LiteralText("You accepted " + Profile.getName() + "friend request."), false);
+                context.getSource().sendFeedback(new LiteralText("You accepted " + Profile.getName() + "friend request.").formatted(Formatting.GREEN), false);
                 context.getSource().getMinecraftServer().getPlayerManager().getPlayer(Profile.getId()).sendMessage(new LiteralText(context.getSource().getName() + " accepted your friend request"), MessageType.SYSTEM, context.getSource().getPlayer().getUuid());
             } else {
                 context.getSource().sendFeedback(new LiteralText("There are no incoming requests from that player"), false);
@@ -101,18 +102,18 @@ public class FriendCommand {
 
         for (GameProfile Profile : GameProfileArgumentType.getProfileArgument(context, "playerName")) {
             if (Profile.equals(context.getSource().getPlayer().getGameProfile())) {
-                context.getSource().sendFeedback(new LiteralText("You can't friend yourself silly!"), false);
+                context.getSource().sendFeedback(new LiteralText("You can't friend yourself silly!").formatted(Formatting.GREEN), false);
                 return Command.SINGLE_SUCCESS;
             }
             if (FriendListManager.getFriendList(commandSender.getUuid()).hasFriend(Profile.getId())) {
-                context.getSource().sendFeedback(new LiteralText("You are already friends with that player"), false);
+                context.getSource().sendFeedback(new LiteralText("You are already friends with that player").formatted(Formatting.GREEN), false);
                 return Command.SINGLE_SUCCESS;
             }
             if (FriendListManager.getFriendList(Profile.getId()).addRequest(commandSender.getUuid())) {
                 context.getSource().sendFeedback(new LiteralText("You sent a request to " + Profile.getName()), false);
-                server.getPlayerManager().getPlayer(Profile.getId()).sendMessage(new LiteralText("You received a friend request from " + server.getUserCache().getByUuid(commandSender.getUuid()).getName()), MessageType.SYSTEM, commandSender.getUuid());
+                server.getPlayerManager().getPlayer(Profile.getId()).sendMessage(new LiteralText("You received a friend request from " + server.getUserCache().getByUuid(commandSender.getUuid()).getName()).formatted(Formatting.GREEN), MessageType.SYSTEM, commandSender.getUuid());
             } else {
-                context.getSource().sendFeedback(new LiteralText("You already sent that player a request."), false);
+                context.getSource().sendFeedback(new LiteralText("You already sent that player a request.").formatted(Formatting.GREEN), false);
                 return 0;
             }
         }
